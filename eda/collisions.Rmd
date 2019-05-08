@@ -1,0 +1,76 @@
+---
+title: "Bird collisions"
+author: "Sara Altman"
+date: "2019-05-07"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+# Library
+library(tidyverse)
+
+# Parameters
+file_data <- "data/collisions.rds"
+
+# ==============================================================================
+collisions <- read_rds(here::here(file_data))
+```
+
+# Summaries
+
+```{r}
+collisions %>% 
+  summary()
+```
+
+```{r}
+collisions %>% 
+  summarize_all(~ sum(is.na(.)))
+```
+
+There are no `NA`s.
+
+# 1D EDA
+
+```{r}
+collisions %>% 
+  ggplot(aes(date)) +
+  geom_histogram(binwidth = 250)
+```
+
+It looks like the number of collisions is increasing.
+
+```{r}
+collisions %>% 
+  count(genus, species, sort = TRUE)
+```
+
+```{r}
+collisions %>% 
+  count(genus, sort = TRUE)
+```
+
+
+```{r}
+collisions %>% 
+  count(locality, sort = TRUE)
+```
+
+There are two localities---McCormick Park and the general Chicago area.
+
+# 2D EDA
+
+```{r}
+collisions %>% 
+  ggplot(aes(date)) +
+  geom_histogram(binwidth = 500) +
+  facet_grid(cols = vars(locality))
+```
+
+Chicago collisions are increasing, but MP collisions actually look like they are going down. 
+
+

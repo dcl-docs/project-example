@@ -1,0 +1,83 @@
+---
+title: "Bird collisions + light scores"
+author: "Sara Altman"
+date: "2019-05-07"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE, warning=FALSE}
+# Library
+library(tidyverse)
+library(lubridate)
+
+# Parameters
+file_data <- here::here("data/bird_collisions_light.rds")
+
+# ==============================================================================
+df <- read_rds(file_data)
+
+mccormick_place <- 
+  df %>% 
+  filter(locality == "McCormick Place")
+```
+
+# Summary
+
+```{r}
+df %>% 
+  summary()
+```
+
+# Collisions over time by flight call
+
+```{r}
+df %>% 
+  count(year_month = floor_date(date, unit = "month"), flight_call) %>% 
+  ggplot(aes(year_month, n, color = flight_call)) +
+  geom_line()
+```
+
+```{r}
+df %>% 
+  count(year = floor_date(date, unit = "year"), flight_call) %>% 
+  ggplot(aes(year, n, color = flight_call)) +
+  geom_line()
+```
+
+# Collisions by light score
+
+```{r}
+mccormick_place %>% 
+  filter(!is.na(light_score)) %>% 
+  count(light_score, flight_call) %>% 
+  ggplot(aes(light_score, n, color = flight_call)) +
+  geom_point() +
+  geom_line() 
+```
+
+Birds with a flight call appear more affected by light.
+
+```{r}
+mccormick_place %>% 
+  filter(!is.na(light_score)) %>% 
+  count(light_score, habitat) %>% 
+  ggplot(aes(light_score, n, color = habitat)) +
+  geom_point() +
+  geom_line() 
+```
+
+Birds across the three habitats have similar responses to light.
+
+```{r}
+mccormick_place %>% 
+  filter(!is.na(light_score)) %>% 
+  count(light_score, stratum) %>% 
+  ggplot(aes(light_score, n, color = stratum)) +
+  geom_point() +
+  geom_line() 
+```
+
