@@ -30,5 +30,4 @@ report.md : bird_collisions_light.rds
 %.rds : %.R
 	Rscript $<
 %.md : %.Rmd
-	Rscript -e \
-	  'rmarkdown::render("$<", output_options = list(html_preview= FALSE))'
+	Rscript -e 'rmarkdown::render(input = "$<", output_options = list(html_preview = FALSE))'
