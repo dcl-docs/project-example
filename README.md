@@ -29,7 +29,7 @@ Now, create your folders. We suggest you use the following folders:
 * __scripts__: data-cleaning scripts
 * __reports__: findings to present to others
 
-![](images/folder-organization.png)
+![](reports/images/folder-organization.png)
 
 The following sections explain the contents of each folder in more detail.
 
