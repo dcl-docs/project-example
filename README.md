@@ -85,6 +85,8 @@ Makefiles are read by a program called `make`. `make` looks for changes in the f
 
 Importantly, `make` will only rebuild files affected by a change. For example, say __birds.txt__ changes. Because of how our Makefile is set up, Make will re-rerun __birds.R__ and __bird_collisions_light.R__, which will re-write to __birds.rds__ and __bird_collisions_light.rds__. Then, Make will re-knit the EDA files __birds.Rmd__ and __bird_collisions_light.Rmd__, as well as our report __report.Rmd__. However, it will not re-rerun __collisions.R__, re-knit __collisions.Rmd__, etc., because these other files do not depend on __birds.txt__.
 
+`make` comes installed on Macs and most Unix machines. If you're a Windows user, you might need to install `make` yourself. You can download the program [here](http://gnuwin32.sourceforge.net/packages/make.htm).
+
 ### Running Make
 
 To run `make`, navigate to your project directory from the command line. Then, type `make` and hit enter. 
