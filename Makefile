@@ -10,7 +10,7 @@ eda = birds.md collisions.md light_mp.md bird_collisions_light.md
 # Reports
 reports = report.md
 
-# Make all
+# All targets
 all : $(data) $(eda) $(reports)
 
 # Data dependencies
