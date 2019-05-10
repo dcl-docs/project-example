@@ -59,7 +59,7 @@ If you joined data, that cleaned data should be here too. The cleaned and joined
 
 ### eda
 
-This folder contains RMarkdown files with your EDA work. Create one RMarkdown file for each cleaned data set that you want to explore.
+This folder contains R Markdown files with your EDA work. Create one R Markdown file for each cleaned data set that you want to explore.
 
 Again, match the names of these files to your data files and cleaning scripts. For example, __birds.Rmd__ performs EDA on just __birds.rds__, __bird_collisions_light.Rmd__ performs EDA on just __bird_collisions_light.rds__, etc.
 
@@ -79,7 +79,7 @@ See the example scripts, EDA documents, and reports for examples.
 
 Imagine __birds.txt__, our example raw data set, gets updated. Maybe the original owners added new birds, or corrected a mistake that they noticed. __birds.rds__, our cleaned version of this data, depends on __birds.txt__. __bird_collisions_light.rds__, our cleaned and joined data, also depends on __birds.txt__, as do some of our EDA files and reports. To update all these files, we could rerun __birds.R__ to regenerate __birds.rds__ and __bird_collisions_light.R__ to regenerate __bird_collisions_light.rds__. Then, we could re-knit the relevant EDA files and reports so that they use the updated data. However, manually updating all our files can get tedious. It also requires remembering which files depend on each other, which can get complicated. 
 
-_Makefiles_ are a better way to keep track of dependencies and update files when there are changes. We've created a makefile for this example project. It specifies which files depend on each other, as well as what to do when certatain files changes (e.g., run the script or knit the RMarkdown file).
+_Makefiles_ are a better way to keep track of dependencies and update files when there are changes. We've created a makefile for this example project. It specifies which files depend on each other, as well as what to do when certain files changes (e.g., run the script or knit the R Markdown file).
 
 Makefiles are read by a program called `make`. `make` looks for changes in the files specified in the makefile. Then, it rebuilds the files that depend on the files that changed, based on the dependency structure given in the makefile.
 
@@ -121,11 +121,11 @@ Your files can have any number of dependencies, but make sure to separate the de
 
 #### Rules
 
-Finally, you need to tell `make` how to update different types of files. We want `make ` to run a script if raw data changes, but knit an RMarkdown document if cleaned data changes. Lines 30-33 define our rules. 
+Finally, you need to tell `make` how to update different types of files. We want `make` to run a script if raw data changes, but knit an R Markdown document if cleaned data changes. Lines 30-33 define our rules. 
 
 You probably won't need to update these rules, but it's useful to understand them. 
 
-The first rule (lines 30-31) tells `make` how to update a .rds file. For example, say __birds.txt__ changes. `make` knows that __birds.rds__ depends on __birds.txt__ because of our specified dependencies. `make` then looks to our first rule to figure out how to update __birds.rds__. The rule says to run the RScript with the same name as the .rds file. In our example, that script is __birds.R__, so `make` will run __birds.R__.
+The first rule (lines 30-31) tells `make` how to update a .rds file. For example, say __birds.txt__ changes. `make` knows that __birds.rds__ depends on __birds.txt__ because of our specified dependencies. `make` then looks to our first rule to figure out how to update __birds.rds__. The rule says to run the R Script with the same name as the .rds file. In our example, that script is __birds.R__, so `make` will run __birds.R__.
 
 The second rule (32-33) tells `make` how to update a .md file. The rule tells `make` to knit the .Rmd version of the relevant .md file. For example, if __birds.md__ needs updating (because __birds.rds__ changed), `make` will knit __birds.Rmd__.
 
