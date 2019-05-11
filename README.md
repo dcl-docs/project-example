@@ -107,7 +107,7 @@ This variable provides the names of all the folders where Make should look for y
     
 This line tells Make to, by default, consider all the files defined by `data`, `eda`, and `reports`. 
     
-If you used the recommended folder organization, you won't need to change line 14. However, you will need to change the contents of `data`, `eda`, and `reports` to reflect the names of your files. 
+If you used the recommended folder organization, you won't need to change line 14. However, you will need to change the definitions of `data`, `eda`, and `reports` to contain the names of the files you'd like Make to monitor and automatically update. 
     
 #### Dependencies
 
