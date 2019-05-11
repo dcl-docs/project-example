@@ -81,31 +81,31 @@ Imagine __birds.txt__, our example raw data set, gets updated. Maybe the origina
 
 _Makefiles_ are a better way to keep track of dependencies and update files when there are changes. We've created a makefile for this example project. It specifies which files depend on each other, as well as what to do when certain files changes (e.g., run the script or knit the R Markdown file).
 
-Makefiles are read by a program called `make`. `make` looks for changes in the files specified in the makefile. Then, it rebuilds the files that depend on the files that changed, based on the dependency structure given in the makefile.
+Makefiles are read by a program called Make. Make looks for changes in the files specified in the makefile. Then, it rebuilds the files that depend on the files that changed, based on the dependency structure given in the makefile.
 
-Importantly, `make` will only rebuild files affected by a change. For example, say __birds.txt__ changes. Because of how our makefile is set up, `make` will re-rerun __birds.R__ and __bird_collisions_light.R__, which will re-write to __birds.rds__ and __bird_collisions_light.rds__. Then, `make` will re-knit the EDA files __birds.Rmd__ and __bird_collisions_light.Rmd__, as well as our report __report.Rmd__. However, it will not re-rerun __collisions.R__, re-knit __collisions.Rmd__, etc., because these other files do not depend on __birds.txt__.
+Importantly, Make will only rebuild files affected by a change. For example, say __birds.txt__ changes. Because of how our makefile is set up, Make will re-rerun __birds.R__ and __bird_collisions_light.R__, which will re-write to __birds.rds__ and __bird_collisions_light.rds__. Then, Make will re-knit the EDA files __birds.Rmd__ and __bird_collisions_light.Rmd__, as well as our report __report.Rmd__. However, it will not re-rerun __collisions.R__, re-knit __collisions.Rmd__, etc., because these other files do not depend on __birds.txt__.
 
-[Gnu `make`](https://www.gnu.org/software/make/) is free software and comes installed on Macs and most Unix machines. If you're a Windows user, you might need to install `make` yourself.
+[Gnu Make](https://www.gnu.org/software/make/) is free software and comes installed on Macs and most Unix machines. If you're a Windows user, you might need to install Make yourself.
 
 ### Running Make
 
-To run `make`, navigate to your project directory from the command line. Then, type `make` and hit enter. 
+To run Make, navigate to your project directory from the command line. Then, type `make` and hit enter. 
 
-### Creating a Makefile
+### Creating a makefile
 
-You'll need to edit the example makefile in order for `make` to work for you. If you're using our recommended folder organization, you should be able to re-use a lot of the example file.
+You'll need to edit the example makefile in order for Make to work for you. If you're using our recommended folder organization, you should be able to re-use a lot of the example file.
 
 #### Search path
   
 `VPATH = data data-raw eda reports scripts`
   
-This variable provides the names of all the folders where `make` should look for your files. If you used our recommended folder organization, you shouldn't have to change anything. If you used different folder names (or have additional folders), just change the names. Make sure to separate the folders with a single space.
+This variable provides the names of all the folders where Make should look for your files. If you used our recommended folder organization, you shouldn't have to change anything. If you used different folder names (or have additional folders), just change the names. Make sure to separate the folders with a single space.
 
 #### Targets
     
 `all : $(data) $(eda) $(reports)` defines a _target_ called `all`. The variables `data`, `eda`, and `reports` are defined on lines 4-11. 
     
-This line tells `make` to, by default, consider all the files defined by `data`, `eda`, and `reports`. 
+This line tells Make to, by default, consider all the files defined by `data`, `eda`, and `reports`. 
     
 If you used the recommended folder organization, you won't need to change line 14. However, you will need to change the contents of `data`, `eda`, and `reports` to reflect the names of your files. 
     
@@ -117,18 +117,18 @@ File A depends on File B if changing File B can change File A. For example, `bir
 
 Create a line for each file in your project that depends on at least one other file. Specify the dependencies by using the following syntax:
 
-`[file name] : [dependency file 1] [dependency file 2] [dependency file 3]`
+`[target file] : [dependency file 1] [dependency file 2] [dependency file 3]`
 
 Your files can have any number of dependencies, but make sure to separate the dependencies with a single space. If your need more than one line for your dependencies, end all lines except the last with a "\".
 
 #### Rules
 
-Finally, you need to tell `make` how to update different types of files. We want `make` to run a script if raw data changes, but knit an R Markdown document if cleaned data changes. Lines 30-33 define our rules. 
+Finally, you need to tell Make how to update different types of files. We want Make to run a script if raw data changes, but knit an R Markdown document if cleaned data changes. Lines 30-33 define our rules. 
 
 You probably won't need to update these rules, but it's useful to understand them. 
 
-The first rule (lines 30-31) tells `make` how to update a .rds file. For example, say __birds.txt__ changes. `make` knows that __birds.rds__ depends on __birds.txt__ because of our specified dependencies. `make` then looks to our first rule to figure out how to update __birds.rds__. The rule says to run the R Script with the same name as the .rds file. In our example, that script is __birds.R__, so `make` will run __birds.R__.
+The first rule (lines 30-31) tells Make how to update a .rds file. For example, say __birds.txt__ changes. Make knows that __birds.rds__ depends on __birds.txt__ because of our specified dependencies. Make then looks to our first rule to figure out how to update __birds.rds__. The rule says to run the R Script with the same name as the .rds file. In our example, that script is __birds.R__, so Make will run __birds.R__.
 
-The second rule (32-33) tells `make` how to update a .md file. The rule tells `make` to knit the .Rmd version of the relevant .md file. For example, if __birds.md__ needs updating (because __birds.rds__ changed), `make` will knit __birds.Rmd__.
+The second rule (32-33) tells Make how to update a .md file. The rule tells Make to knit the .Rmd version of the relevant .md file. For example, if __birds.md__ needs updating (because __birds.rds__ changed), Make will knit __birds.Rmd__.
 
 
