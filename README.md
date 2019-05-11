@@ -125,7 +125,7 @@ Finally, you need to tell Make how to update different types of files. We want M
 
 You probably won't need to update these rules, but it's useful to understand them. 
 
-The first rule (lines 30-31) tells Make how to update a .rds file. For example, say __birds.txt__ changes. Make knows that __birds.rds__ depends on __birds.txt__ because of our specified dependencies. Make then looks to our first rule to figure out how to update __birds.rds__. The rule says to run the R Script with the same name as the .rds file. In our example, that script is __birds.R__, so Make will run __birds.R__.
+The first rule (lines 30-31) tells Make how to update a .rds file. For example, say __birds.txt__ changes. Make knows that __birds.rds__ depends on __birds.txt__ because of our specified dependencies. Make then looks to our first rule to figure out how to update __birds.rds__. The rule says to run the R script with the same name as the .rds file. In our example, that script is __birds.R__, so Make will run __birds.R__.
 
 The second rule (32-33) tells Make how to update a .md file. The rule tells Make to knit the .Rmd version of the relevant .md file. For example, if __birds.md__ needs updating (because __birds.rds__ changed), Make will knit __birds.Rmd__.
 
