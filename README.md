@@ -45,7 +45,7 @@ If you're worried about your files being too large to push to GitHub, you can ad
 
 This folder is for your data-cleaning scripts. Each script reads in raw data, cleans it, and writes the cleaned data to a .rds file in the __data__ folder.
 
-You should have one script for each raw data source. Name each script the same name as the raw data source. For example, one of our raw data files is named __birds.csv__. The script that cleans __collisions.csv__ is called __collisions.R__, and __collisions.R__ writes the cleaned data to __collisions.rds__. 
+You should have one script for each raw data source. Name each script the same name as the raw data source. For example, one of our raw data files is named __birds.txt__. The script that cleans __collisions.csv__ is called __collisions.R__, and __collisions.R__ writes the cleaned data to __collisions.rds__. 
 
 If you want to join multiple data sources, create an additional script that joins the cleaned data files. For example, __bird_collisions_light.R__ joins __birds.rds__, __collisions.rds__, and __light_mp.rds__, and writes to __bird_collisions_light.rds__. As the diagram points out, your joining scripts can join cleaned data from __data__. 
   
@@ -69,9 +69,9 @@ This folder contains reports on your data. These don't need to be named accordin
 
 ## Use `here::here()` for file paths
 
-Say you want to give the file path for __collisions.csv__ in __collisions.R__. One way to specify the file would be to give the file path relative to the scripts folder: _../data-raw/collisions.csv_. However, this will only work if you set your working directory to the __scripts__ folder every time you run your script. It also means you have to think about where folders are located relative to each other.
+Say you want to give the file path for __collisions.csv__ in __collisions.R__. One way to specify the file would be to give the file path relative to the scripts folder: `"../data-raw/collisions.csv"`. However, this will only work if you set your working directory to the __scripts__ folder every time you run your script. It also means you have to think about where folders are located relative to each other.
 
-The here package makes this process easier. The function `here::here()` allows you to specify a file path relative to the directory of your .Rproj file, no matter what folder you're in. For example, with `here::here()`, you give the file path of __collisions.csv__ as _data-raw/collisions.csv_.
+The here package makes this process easier. The function `here::here()` allows you to specify a file path relative to the directory of your .Rproj file, no matter what folder you're in. For example, with `here::here()`, you give the file path of __collisions.csv__ as `here::here("data-raw/collisions.csv")`.
 
 See the example scripts, EDA documents, and reports for examples.
 
@@ -83,9 +83,9 @@ _Makefiles_ are a better way to keep track of dependencies and update files when
 
 Makefiles are read by a program called `make`. `make` looks for changes in the files specified in the makefile. Then, it rebuilds the files that depend on the files that changed, based on the dependency structure given in the makefile.
 
-Importantly, `make` will only rebuild files affected by a change. For example, say __birds.txt__ changes. Because of how our Makefile is set up, Make will re-rerun __birds.R__ and __bird_collisions_light.R__, which will re-write to __birds.rds__ and __bird_collisions_light.rds__. Then, Make will re-knit the EDA files __birds.Rmd__ and __bird_collisions_light.Rmd__, as well as our report __report.Rmd__. However, it will not re-rerun __collisions.R__, re-knit __collisions.Rmd__, etc., because these other files do not depend on __birds.txt__.
+Importantly, `make` will only rebuild files affected by a change. For example, say __birds.txt__ changes. Because of how our makefile is set up, `make` will re-rerun __birds.R__ and __bird_collisions_light.R__, which will re-write to __birds.rds__ and __bird_collisions_light.rds__. Then, `make` will re-knit the EDA files __birds.Rmd__ and __bird_collisions_light.Rmd__, as well as our report __report.Rmd__. However, it will not re-rerun __collisions.R__, re-knit __collisions.Rmd__, etc., because these other files do not depend on __birds.txt__.
 
-`make` comes installed on Macs and most Unix machines. If you're a Windows user, you might need to install `make` yourself. You can download the program [here](http://gnuwin32.sourceforge.net/packages/make.htm).
+[Gnu `make`](https://www.gnu.org/software/make/) is free software and comes installed on Macs and most Unix machines. If you're a Windows user, you might need to install `make` yourself.
 
 ### Running Make
 
@@ -117,9 +117,9 @@ File A depends on File B if changing File B can change File A. For example, `bir
 
 Create a line for each file in your project that depends on at least one other file. Specify the dependencies by using the following syntax:
 
-`[file name] : [dependency-1] [dependency-2] [dependency-3]`
+`[file name] : [dependency file 1] [dependency file 2] [dependency file 3]`
 
-Your files can have any number of dependencies, but make sure to separate the dependencies with a single space. 
+Your files can have any number of dependencies, but make sure to separate the dependencies with a single space. If your need more than one line for your dependencies, end all lines except the last with a "\".
 
 #### Rules
 
