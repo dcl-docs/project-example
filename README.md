@@ -119,7 +119,7 @@ Create a line for each file in your project that depends on at least one other f
 
 `[target file] : [dependency file 1] [dependency file 2] [dependency file 3]`
 
-Your files can have any number of dependencies, but make sure to separate the dependencies with a single space. If your need more than one line for your dependencies, end all lines except the last with a "\".
+Your files can have any number of dependencies, but make sure to separate the dependencies with a single space. If you need more than one line for your dependencies, end all lines except the last with a "\\".
 
 #### Rules
 
