@@ -14,10 +14,11 @@ library(tidyverse)
 
 ``` r
 # Parameters
-file_data <- "data/collisions.rds"
+file_data <- here::here("data/collisions.rds")
 
-# ==============================================================================
-collisions <- read_rds(here::here(file_data))
+#===============================================================================
+
+collisions <- read_rds(file_data)
 ```
 
 # Summaries

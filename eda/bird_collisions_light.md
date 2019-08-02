@@ -11,7 +11,7 @@ library(lubridate)
 # Parameters
 file_data <- here::here("data/bird_collisions_light.rds")
 
-# ==============================================================================
+#===============================================================================
 
 df <- read_rds(file_data)
 
