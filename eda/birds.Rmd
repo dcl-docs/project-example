@@ -14,10 +14,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 
 # Parameters
-file_data <- "data/birds.rds"
+file_data <- here::here("data/birds.rds")
 
 # ==============================================================================
-birds <- read_rds(here::here(file_data))
+
+birds <- read_rds(file_data)
 ```
 
 # Summary
