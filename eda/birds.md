@@ -8,10 +8,11 @@ Sara Altman
 library(tidyverse)
 
 # Parameters
-file_data <- "data/birds.rds"
+file_data <- here::here("data/bird_collisions_light.rds")
 
 # ==============================================================================
-birds <- read_rds(here::here(file_data))
+
+df <- read_rds(file_data)
 ```
 
 # Summary
