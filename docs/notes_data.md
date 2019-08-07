@@ -1,0 +1,24 @@
+Notes - Data
+================
+
+## General
+
+  - Data [download
+    site](https://datadryad.org/resource/doi:10.5061/dryad.8rr0498)
+  - Collision and McCormick Place night-time lighting data were by
+    recorded by researchers during “pre-dawn walks.”
+  - The McCormick Place light score is the number of window bays
+    illuminated. There are 17 total window bays.
+  - There is collision data for both McCormick Place (a convention
+    center in Chicago) and downtown Chicago. There is only lighting data
+    for McCormick Place.
+
+## Key variables
+
+  - Bird taxonomy
+      - `family`
+      - `genus`
+      - `species`
+  - Collisions
+      - `date`
+      - `light_score`

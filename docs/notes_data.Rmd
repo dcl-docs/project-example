@@ -1,6 +1,8 @@
 ---
 title: "Notes - Data"
-date: 2019-08-07
+output: 
+  github_document:
+    toc: true
 ---
 
 ## General
