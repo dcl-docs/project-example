@@ -25,6 +25,7 @@ Now, create your folders. We suggest you use the following folders:
 
 * __data__: cleaned data
 * __data-raw__: raw data
+* __docs__: data documentation and notes
 * __eda__: exploratory data analysis on your cleaned data
 * __scripts__: data-cleaning scripts
 * __reports__: findings to present to others
