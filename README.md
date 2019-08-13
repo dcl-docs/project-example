@@ -11,9 +11,7 @@ The following is a brief description of our recommended workflow and organizatio
 
 ## Create an RStudio project
 
-The first step is to create an RStudio project.
-
-The dcl package contains an RStudio project template with a predefined folder structure and a Makefile template. To use our template, you'll need to install the dcl package if you haven't already. The following code will install the dcl package from GitHub:
+The first step is to create an RStudio project. The [dcl package](https://github.com/stanford-datalab/dcl) contains an RStudio project template with six folders and a makefile. To use our template, you'll need to install the dcl package. 
 
 `devtools::install_github("stanford-datalab/dcl")`
 
@@ -26,7 +24,7 @@ Now, you can create a project using our template.
 
 You should now have a file called __[your directory's name].Rproj__. Now, every time you want to work on your project, open this RStudio project. 
 
-Note that if you created a directory for your project before creating an RStudio project, you can't use RStudio's project templates. It's therefore easiest to create a directory by using the RStudio Project wizard (by following the steps we just laid out), instead of first creating a directory and then adding in a project. 
+Note that if you created a directory for your project before creating an RStudio project, you can't use RStudio's project templates. It's therefore easiest to create a directory by using the RStudio Project wizard (by following the steps we just explained), instead of first creating a directory and then adding in a project. 
 
 ## Folder organization
 
@@ -100,7 +98,7 @@ Our template is similar to the default GitHub document template, but includes a 
 
 ## Make
 
-Imagine __birds.txt__, our example raw data set, gets updated. Maybe the original owners added new birds, or corrected a mistake that they noticed. __birds.rds__, our cleaned version of this data, depends on __birds.txt__. __bird_collisions_light.rds__, our cleaned and joined data, also depends on __birds.txt__, as do some of our EDA files and reports. To update all these files, we could rerun __birds.R__ to regenerate __birds.rds__ and __bird_collisions_light.R__ to regenerate __bird_collisions_light.rds__. Then, we could re-knit the relevant EDA files and reports so that they use the updated data. However, manually updating all our files can get tedious. It also requires remembering which files depend on each other, which can get complicated. 
+Imagine that __birds.txt__, our example raw data set, gets updated. Maybe the original owners added new birds or corrected a mistake that they noticed. __birds.rds__, our cleaned version of this data, depends on __birds.txt__. __bird_collisions_light.rds__, our cleaned and joined data, also depends on __birds.txt__, as do some of our EDA files and reports. To update all these files, we could rerun __birds.R__ to regenerate __birds.rds__ and __bird_collisions_light.R__ to regenerate __bird_collisions_light.rds__. Then, we could re-knit the relevant EDA files and reports so that they use the updated data. However, manually updating all our files can get tedious. It also requires remembering which files depend on each other, which can get complicated. 
 
 _Makefiles_ are a better way to keep track of dependencies and update files when there are changes. We've created a makefile for this example project. It specifies which files depend on each other, as well as what to do when certain files changes (e.g., run the script or knit the R Markdown file).
 
