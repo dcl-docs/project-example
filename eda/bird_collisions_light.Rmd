@@ -1,8 +1,10 @@
 ---
 title: "Bird collisions + light scores"
 author: "Sara Altman"
-date: "2019-05-07"
-output: github_document
+date: "`r Sys.Date()`"
+output: 
+  github_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -10,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r message=FALSE, warning=FALSE}
-# Library
+# Libraries
 library(tidyverse)
 library(lubridate)
 
@@ -19,6 +21,7 @@ file_data <- here::here("data/bird_collisions_light.rds")
 
 #===============================================================================
 
+# Read in data
 df <- read_rds(file_data)
 
 mccormick_place <- 
@@ -26,14 +29,14 @@ mccormick_place <-
   filter(locality == "McCormick Place")
 ```
 
-# Summary
+## Summary
 
 ```{r}
 df %>% 
   summary()
 ```
 
-# Collisions over time by flight call
+## Collisions over time by flight call
 
 ```{r}
 df %>% 
@@ -49,7 +52,7 @@ df %>%
   geom_line()
 ```
 
-# Collisions by light score
+## Collisions by light score
 
 ```{r}
 mccormick_place %>% 

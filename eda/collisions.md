@@ -1,27 +1,22 @@
 Bird collisions
 ================
 Sara Altman
-2019-05-07
+2019-08-13
 
 ``` r
-# Library
+# Libraries
 library(tidyverse)
-```
 
-    ## Warning: package 'purrr' was built under R version 3.5.2
-
-    ## Warning: package 'stringr' was built under R version 3.5.2
-
-``` r
 # Parameters
 file_data <- here::here("data/collisions.rds")
 
 #===============================================================================
 
+# Read in data
 collisions <- read_rds(file_data)
 ```
 
-# Summaries
+## Summaries
 
 ``` r
 collisions %>% 
@@ -55,7 +50,7 @@ collisions %>%
 
 There are no `NA`s.
 
-# 1D EDA
+## 1D EDA
 
 ``` r
 collisions %>% 
@@ -120,7 +115,7 @@ collisions %>%
 
 There are two localities—McCormick Park and the general Chicago area.
 
-# 2D EDA
+## 2D EDA
 
 ``` r
 collisions %>% 
@@ -128,8 +123,6 @@ collisions %>%
   geom_histogram(binwidth = 500) +
   facet_grid(cols = vars(locality))
 ```
-
-![](collisions_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 Chicago collisions are increasing, but MP collisions actually look like
 they are going down.

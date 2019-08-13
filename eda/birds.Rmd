@@ -1,8 +1,10 @@
 ---
 title: "Birds"
 author: "Sara Altman"
-date: "2019-05-02"
-output: github_document
+date: "`r Sys.Date()`"
+output: 
+  github_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -21,7 +23,7 @@ file_data <- here::here("data/birds.rds")
 birds <- read_rds(file_data)
 ```
 
-# Summary
+## Summary
 
 ```{r}
 birds %>% 
@@ -43,9 +45,9 @@ birds %>%
 
 There are no NAs in any column.
 
-# 1D EDA
+## 1D EDA
 
-## Number of collisions
+### Number of collisions
 
 ```{r}
 birds %>% 
@@ -69,7 +71,7 @@ birds %>%
 
 Maybe these are very common birds in the Chicago area. The Passerellidae family are sparrows.
 
-## Flight call
+### Flight call
 
 ```{r}
 birds %>% 
@@ -85,7 +87,7 @@ birds %>%
   geom_bar()
 ```
 
-## Habitat
+### Habitat
 
 ```{r}
 birds %>% 
@@ -99,7 +101,7 @@ birds %>%
   geom_bar()
 ```
 
-## Stratum
+### Stratum
 
 ```{r}
 birds %>% 
@@ -108,7 +110,7 @@ birds %>%
 
 More birds occupy the upper stratum than lower, but the numbers are similar.
 
-# 2D EDA
+## 2D EDA
 
 ```{r}
 birds %>% 

@@ -1,10 +1,10 @@
 Bird collisions + light scores
 ================
 Sara Altman
-2019-05-07
+2019-08-13
 
 ``` r
-# Library
+# Libraries
 library(tidyverse)
 library(lubridate)
 
@@ -13,6 +13,7 @@ file_data <- here::here("data/bird_collisions_light.rds")
 
 #===============================================================================
 
+# Read in data
 df <- read_rds(file_data)
 
 mccormick_place <- 
@@ -20,7 +21,7 @@ mccormick_place <-
   filter(locality == "McCormick Place")
 ```
 
-# Summary
+## Summary
 
 ``` r
 df %>% 
@@ -52,7 +53,7 @@ df %>%
     ##                                        Max.   :17.00  
     ##                                        NA's   :28887
 
-# Collisions over time by flight call
+## Collisions over time by flight call
 
 ``` r
 df %>% 
@@ -72,7 +73,7 @@ df %>%
 
 ![](bird_collisions_light_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-# Collisions by light score
+## Collisions by light score
 
 ``` r
 mccormick_place %>% 

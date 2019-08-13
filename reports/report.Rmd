@@ -1,9 +1,12 @@
 ---
 title: "Report"
 author: "Sara Altman"
-date: "2019-05-07"
-output: github_document
+date: "`r Sys.Date()`"
+output: 
+  github_document:
+    toc: true
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -17,6 +20,7 @@ library(tidyverse)
 file_data <- here::here("data/bird_collisions_light.rds")
   # Total number of window bays at McCormick Place; used to calculated light_score
 num_windows <- 17
+
 # ==============================================================================
 
 df <- read_rds(file_data)

@@ -1,8 +1,10 @@
 ---
 title: "Bird collisions"
 author: "Sara Altman"
-date: "2019-05-07"
-output: github_document
+date: "`r Sys.Date()`"
+output: 
+  github_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -10,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r message=FALSE, warning=FALSE}
-# Library
+# Libraries
 library(tidyverse)
 
 # Parameters
@@ -18,10 +20,11 @@ file_data <- here::here("data/collisions.rds")
 
 #===============================================================================
 
+# Read in data
 collisions <- read_rds(file_data)
 ```
 
-# Summaries
+## Summaries
 
 ```{r}
 collisions %>% 
@@ -35,7 +38,7 @@ collisions %>%
 
 There are no `NA`s.
 
-# 1D EDA
+## 1D EDA
 
 ```{r}
 collisions %>% 
@@ -63,9 +66,9 @@ collisions %>%
 
 There are two localities---McCormick Park and the general Chicago area.
 
-# 2D EDA
+## 2D EDA
 
-```{r}
+```{r eval=FALSE}
 collisions %>% 
   ggplot(aes(date)) +
   geom_histogram(binwidth = 500) +

@@ -1,7 +1,7 @@
 Report
 ================
 Sara Altman
-2019-05-07
+2019-08-13
 
 ``` r
 # Libraries
@@ -11,6 +11,7 @@ library(tidyverse)
 file_data <- here::here("data/bird_collisions_light.rds")
   # Total number of window bays at McCormick Place; used to calculated light_score
 num_windows <- 17
+
 # ==============================================================================
 
 df <- read_rds(file_data)

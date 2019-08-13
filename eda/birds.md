@@ -1,21 +1,21 @@
 Birds
 ================
 Sara Altman
-2019-05-02
+2019-08-13
 
 ``` r
 # Libraries
 library(tidyverse)
 
 # Parameters
-file_data <- here::here("data/bird_collisions_light.rds")
+file_data <- here::here("data/birds.rds")
 
 #===============================================================================
 
-df <- read_rds(file_data)
+birds <- read_rds(file_data)
 ```
 
-# Summary
+## Summary
 
 ``` r
 birds %>% 
@@ -63,9 +63,9 @@ birds %>%
 
 There are no NAs in any column.
 
-# 1D EDA
+## 1D EDA
 
-## Number of collisions
+### Number of collisions
 
 ``` r
 birds %>% 
@@ -114,7 +114,7 @@ birds %>%
 Maybe these are very common birds in the Chicago area. The Passerellidae
 family are sparrows.
 
-## Flight call
+### Flight call
 
 ``` r
 birds %>% 
@@ -140,7 +140,7 @@ birds %>%
 
 ![](birds_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
-## Habitat
+### Habitat
 
 ``` r
 birds %>% 
@@ -163,7 +163,7 @@ birds %>%
 
 ![](birds_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
-## Stratum
+### Stratum
 
 ``` r
 birds %>% 
@@ -179,7 +179,7 @@ birds %>%
 More birds occupy the upper stratum than lower, but the numbers are
 similar.
 
-# 2D EDA
+## 2D EDA
 
 ``` r
 birds %>% 

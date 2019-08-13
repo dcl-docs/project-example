@@ -1,27 +1,22 @@
 McCormick Place light scores
 ================
 Sara Altman
-2019-05-03
+2019-08-13
 
 ``` r
-# Library
+# Libraries
 library(tidyverse)
-```
 
-    ## Warning: package 'purrr' was built under R version 3.5.2
-
-    ## Warning: package 'stringr' was built under R version 3.5.2
-
-``` r
 # Parameters
 file_data <- here::here("data/light_mp.rds")
 
 #===============================================================================
 
+# Read in data
 light_mp <- read_rds(file_data)
 ```
 
-# Summary
+## Summary
 
 ``` r
 light_mp %>% 
@@ -83,7 +78,7 @@ light_mp %>%
     ## 10 2000-04-02     1
     ## # … with 3,052 more rows
 
-# 1D EDA
+## 1D EDA
 
 ``` r
 light_mp %>% 
@@ -105,7 +100,7 @@ light_mp %>%
 
 Data was collected pretty evenly across time.
 
-# 2D EDA
+## 2D EDA
 
 ``` r
 light_mp %>% 
