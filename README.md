@@ -11,17 +11,26 @@ The following is a brief description of our recommended workflow and organizatio
 
 ## Create an RStudio project
 
-The first step is to create an RStudio project for your directory. The project should live at the top level of your directory. 
+The first step is to create an RStudio project.
+
+The dcl package contains an RStudio project template with a predefined folder structure and a Makefile template. To use our template, you'll need to install the dcl package if you haven't already. The following code will install the dcl package from GitHub:
+
+`devtools::install_github("stanford-datalab/dcl")`
+
+Now, you can create a project using our template.
 
 * Click on the project drop-down menu in the upper-right corner of RStudio. 
 * Select _New Project_.
-* Select _Create project from existing directory_. Select your directory.
+* Select _New Directory_ > _DCL Project_. 
+* Name your directory, then click _Create Project_.
 
 You should now have a file called __[your directory's name].Rproj__. Now, every time you want to work on your project, open this RStudio project. 
 
-## Setup your folders
+Note that if you created a directory for your project before creating an RStudio project, you can't use RStudio's project templates. It's therefore easiest to create a directory by using the RStudio Project wizard (by following the steps we just laid out), instead of first creating a directory and then adding in a project. 
 
-Now, create your folders. We suggest you use the following folders:
+## Folder organization
+
+If you used the DCL Project template, you'll have a directory with the following folders:
 
 * __data__: cleaned data
 * __data-raw__: raw data
@@ -50,13 +59,17 @@ You should have one script for each raw data source. Name each script the same n
 
 If you want to join multiple data sources, create an additional script that joins the cleaned data files. For example, __bird_collisions_light.R__ joins __birds.rds__, __collisions.rds__, and __light_mp.rds__, and writes to __bird_collisions_light.rds__. As the diagram points out, your joining scripts can join cleaned data from __data__. 
   
-We recommend having a clear, common format for your scripts. See __template.R__ for our template. Specifically, we recommend always separating parameters from code and describing the purpose of each script in comments. 
+We recommend having a clear, common format for your scripts. See __scripts/template.R__ for our template. Specifically, we recommend always separating parameters from code and describing the purpose of each script in comments. 
 
 ### data
 
 This folder contains cleaned data (in .rds format) that is ready to analyze. Each .rds file should have the same name as its corresponding raw data file and cleaning script.
 
 If you joined data, that cleaned data should be here too. The cleaned and joined data should have the same name as the script that carried out the joining.
+
+### docs
+
+The __docs__ folder is for any documentation files you used to understand the data, as well as for any notes you have on the data or your plan for analysis. 
 
 ### eda
 
@@ -75,6 +88,15 @@ Say you want to give the file path for __collisions.csv__ in __collisions.R__. O
 The here package makes this process easier. The function `here::here()` allows you to specify a file path relative to the directory of your .Rproj file, no matter what folder you're in. For example, with `here::here()`, you give the file path of __collisions.csv__ as `here::here("data-raw/collisions.csv")`.
 
 See the example scripts, EDA documents, and reports for examples.
+
+## R Markdown template
+
+The dcl package also contains a R Markdown template to use for your EDA files and reports. To use the template:
+
+* Click on the new file button in the top-left corner of RStudio.
+* Select _R Markdown_ > _From Template_ > _DCL GitHub Document_. 
+
+Our template is similar to the default GitHub document template, but includes a table of contents by default; formats the first R chunk to highlight places for libraries, parameters, and reading in code; and has example headers.
 
 ## Make
 
