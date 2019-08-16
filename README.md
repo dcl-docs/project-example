@@ -14,6 +14,7 @@ The following is a brief description of our recommended workflow and organizatio
 The first step is to create an RStudio project. The [dcl package](https://github.com/stanford-datalab/dcl) contains an RStudio project template with six folders and a makefile. To use our template, you'll need to install the dcl package. 
 
 ``` r
+# install.packages("devtools")
 devtools::install_github("stanford-datalab/dcl")
 ```
 
