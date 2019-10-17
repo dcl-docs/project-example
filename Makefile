@@ -2,16 +2,16 @@
 VPATH = data data-raw eda reports scripts
 
 # Processed data files
-data = birds.rds collisions.rds light_mp.rds bird_collisions_light.rds
+DATA = birds.rds collisions.rds light_mp.rds bird_collisions_light.rds
 
 # EDA studies
-eda = birds.md collisions.md light_mp.md bird_collisions_light.md
+EDA = birds.md collisions.md light_mp.md bird_collisions_light.md
 
 # Reports
-reports = report.md
+REPORTS = report.md
 
 # All targets
-all : $(data) $(eda) $(reports)
+all : $(DATA) $(EDA) $(REPORTS)
 
 # Data dependencies
 birds.rds : birds.txt

@@ -127,9 +127,9 @@ This variable provides the names of all the folders where Make should look for y
 
 #### Targets
     
-`all : $(data) $(eda) $(reports)` on line 14 defines a _target_ called `all`. This tells Make to, by default, consider all the files defined by `data`, `eda`, and `reports`. 
+`all : $(DATA) $(EDA) $(REPORTS)` on line 14 defines a _target_ called `all`. This tells Make to, by default, consider all the files defined by `DATA`, `EDA`, and `REPORTS`. 
 
-If you used the recommended folder organization, you won't need to change line 14. However, you will need to change the definitions of `data`, `eda`, and `reports` on lines 4-11 to contain the names of the files you'd like Make to monitor and automatically update. 
+If you used the recommended folder organization, you won't need to change line 14. However, you will need to change the definitions of `DATA`, `EDA`, and `REPORTS` on lines 4-11 to contain the names of the files you'd like Make to monitor and automatically update. 
     
 #### Dependencies
 
