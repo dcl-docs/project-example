@@ -113,7 +113,7 @@ Importantly, Make will only rebuild files affected by a change. For example, say
 
 ### Running Make
 
-To run Make, navigate to your project directory from the command line. Then, type `make` and hit enter. 
+To run Make, navigate to your project directory from the command line. Then, type `make` and hit enter. Note that this won't work for your specific project until you create your own makefile by following the instructions below. 
 
 ### Creating a makefile
 
