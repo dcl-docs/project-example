@@ -14,11 +14,10 @@ REPORTS = report.md
 all : $(DATA) $(EDA) $(REPORTS)
 
 # Data dependencies
-birds.rds : birds.R birds.txt
-collisions.rds : collisions.R collisions.csv
-light_mp.rds : light_mp.R light_mp.csv
-bird_collisions_light.rds : bird_collisions_light.R \
-  birds.rds collisions.rds light_mp.rds
+birds.rds : birds.txt
+collisions.rds : collisions.csv
+light_mp.rds : light_mp.csv
+bird_collisions_light.rds : birds.rds collisions.rds light_mp.rds
 
 # EDA study and report dependencies
 birds.md : birds.rds
