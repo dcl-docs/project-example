@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r message=FALSE, warning=FALSE}
-# Libraries
+# Packages
 library(tidyverse)
 
 # Parameters

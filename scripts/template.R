@@ -5,7 +5,7 @@
 # Author: [Your name]
 # Version: [Date script was last modified in YYYY-MM-DD format]
 
-# Libraries
+# Packages
 library(tidyverse)
 
 # Parameters

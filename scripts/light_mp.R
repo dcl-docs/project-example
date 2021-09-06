@@ -8,7 +8,7 @@
 # Author: Sara Altman
 # Version: 2019-05-07
 
-# Libraries
+# Packages
 library(tidyverse)
 
 # Parameters

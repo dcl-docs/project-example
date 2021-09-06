@@ -4,7 +4,7 @@ Sara Altman
 2019-08-13
 
 ``` r
-# Libraries
+# Packages
 library(tidyverse)
 
 # Parameters
