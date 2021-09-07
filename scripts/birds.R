@@ -1,9 +1,10 @@
-# Reads in and writes out species data on birds
+# Transforms species data on birds
 
-# Source: https://royalsocietypublishing.org/action/downloadSupplement?doi=10.1098%2Frspb.2019.0364&file=rspb20190364supp1.pdf
+# Source:
+# https://royalsocietypublishing.org/action/downloadSupplement?doi=10.1098%2Frspb.2019.0364&file=rspb20190364supp1.pdf
 
-# Author: Sara Altman
-# Version: 2019-05-01
+# Authors: Sara Altman, Bill Behrman
+# Version: 2021-09-08
 
 # Packages
 library(tidyverse)
@@ -42,11 +43,11 @@ file_raw %>%
         habitat = col_character(),
         stratum = col_character()
       )
-  )  %>% 
-  mutate_at(vars(flight_call, habitat, stratum), str_to_lower) %>% 
+  ) %>% 
   mutate(
+    across(c(flight_call, habitat, stratum), str_to_lower),
     species = str_to_title(species),
     stratum = str_remove_all(stratum, "[^\\w].*$")
   ) %>% 
-  select(family, genus, species, everything()) %>% 
+  relocate(family) %>% 
   write_rds(file_out)
