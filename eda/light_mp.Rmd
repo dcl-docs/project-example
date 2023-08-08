@@ -1,6 +1,6 @@
 ---
 title: "McCormick Place light scores"
-author: "Sara Altman"
+author: "Sara Altman, Bill Behrman"
 date: "`r Sys.Date()`"
 output: 
   github_document:
@@ -28,36 +28,36 @@ light_mp <- read_rds(file_data)
 ## Summary
 
 ```{r}
-light_mp %>% 
+light_mp |> 
   summary()
 ```
 
-The light score is the "proportion of the 17 window bays that were illuminated" [1]. The recordings all happened before dawn. 
+The light score is the "proportion of the 17 window bays that were illuminated" [^1]. The recordings all happened before dawn. 
 
 ```{r}
-light_mp %>% 
+light_mp |> 
   count(light_score, sort = TRUE)
 ```
 
 ```{r}
-light_mp %>% 
+light_mp |> 
   count(date, sort = TRUE)
 ```
 
 ## 1D EDA
 
 ```{r}
-light_mp %>% 
+light_mp |> 
   ggplot(aes(light_score)) +
-  geom_histogram(binwidth = 1)
+  geom_histogram(binwidth = 1, center = 0)
 ```
 
 Light tends to be either very low or very high.
 
 ```{r}
-light_mp %>% 
+light_mp |> 
   ggplot(aes(date)) +
-  geom_histogram(binwidth = 250)
+  geom_histogram(binwidth = 365)
 ```
 
 Data was collected pretty evenly across time.
@@ -65,45 +65,42 @@ Data was collected pretty evenly across time.
 ## 2D EDA
 
 ```{r}
-light_mp %>% 
-  group_by(date) %>% 
-  summarize(light_score = median(light_score, na.rm = TRUE)) %>% 
+light_mp |> 
   ggplot(aes(date, light_score)) +
   geom_col()
 ```
 
 ```{r}
-light_mp %>% 
-  filter(lubridate::year(date) > 2013) %>% 
-  group_by(date) %>% 
-  summarize(light_score = median(light_score, na.rm = TRUE)) %>% 
+light_mp |> 
+  filter(year(date) > 2013) |> 
   ggplot(aes(date, light_score)) +
   geom_col()
 ```
 
 ```{r}
-light_mp %>% 
-  ggplot(aes(lubridate::month(date, label = TRUE))) +
+light_mp |> 
+  mutate(month = month(date, label = TRUE)) |> 
+  ggplot(aes(month)) +
   geom_bar()
 ```
 
 The researchers only measured the light of McCormick Place during bird migration periods, which occur in the spring and autumn. 
 
 ```{r}
-light_mp %>% 
-  group_by(year = lubridate::year(date)) %>% 
-  summarize(median_light = median(light_score, na.rm = TRUE)) %>% 
-  ggplot(aes(year, median_light)) +
+light_mp |> 
+  group_by(year = year(date)) |> 
+  summarize(light_mean = mean(light_score)) |> 
+  ggplot(aes(year, light_mean)) +
   geom_line() +
   scale_x_continuous(breaks = seq(2000, 2018, 1))
 ```
 
 ```{r}
-light_mp %>% 
-  group_by(month = lubridate::month(date, label = TRUE)) %>% 
-  summarize(median_light = median(light_score, na.rm = TRUE)) %>% 
-  ggplot(aes(month, median_light)) +
+light_mp |> 
+  group_by(month = month(date, label = TRUE)) |> 
+  summarize(light_mean = mean(light_score)) |> 
+  ggplot(aes(month, light_mean)) +
   geom_col() 
 ```
 
-[^1] Winger Benjamin M., Weeks Brian C., Farnsworth Andrew, Jones Andrew W., Hennen Mary and Willard David E. Nocturnal flight-calling behaviour predicts vulnerability to artificial light in migratory birds. 286. Proceedings of the Royal Society B: Biological Sciences. http://doi.org/10.1098/rspb.2019.0364.
+[^1]: Winger BM, Weeks BC, Farnsworth A, Jones AW, Hennen M, Willard DE. Nocturnal flight-calling behaviour predicts vulnerability to artificial light in migratory birds. 286. Proceedings of the Royal Society B: Biological Sciences. http://doi.org/10.1098/rspb.2019.0364.

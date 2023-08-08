@@ -7,7 +7,7 @@
 # https://doi.org/10.5061/dryad.8rr0498
 
 # Authors: Sara Altman, Bill Behrman
-# Version: 2021-09-08
+# Version: 2023-08-08
 
 # Packages
 library(tidyverse)
@@ -27,14 +27,14 @@ genus_recode <-
     genus == "Ammodramus" & species %in% c("Nelsoni", "Leconteii") ~
       "Ammospiza",
     genus == "Ammodramus" & species == "Henslowii" ~ "Centronyx",
-    TRUE ~ genus
+    .default = genus
   )
   # Output file
 file_out <- here::here("data/collisions.rds")
 
 #===============================================================================
 
-file_raw %>% 
+file_raw |> 
   read_csv(
     col_types = 
       cols(
@@ -43,11 +43,11 @@ file_raw %>%
         Date = col_date(),
         Locality = col_character()
       )
-  ) %>% 
-  rename_with(str_to_lower) %>% 
+  ) |> 
+  rename_with(str_to_lower) |> 
   mutate(
     across(c(genus, species), str_to_title), 
     locality = recode(locality, !!! locations_recode),
     genus = case_when(!!! genus_recode)
-  ) %>% 
+  ) |> 
   write_rds(file_out)

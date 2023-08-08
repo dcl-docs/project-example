@@ -1,6 +1,6 @@
 ---
 title: "Bird collisions"
-author: "Sara Altman"
+author: "Sara Altman, Bill Behrman"
 date: "`r Sys.Date()`"
 output: 
   github_document:
@@ -27,13 +27,13 @@ collisions <- read_rds(file_data)
 ## Summaries
 
 ```{r}
-collisions %>% 
+collisions |>
   summary()
 ```
 
 ```{r}
-collisions %>% 
-  summarize_all(~ sum(is.na(.)))
+collisions |>
+  summarize_all(\(x) sum(is.na(x)))
 ```
 
 There are no `NA`s.
@@ -41,40 +41,40 @@ There are no `NA`s.
 ## 1D EDA
 
 ```{r}
-collisions %>% 
+collisions |>
   ggplot(aes(date)) +
-  geom_histogram(binwidth = 250)
+  geom_histogram(binwidth = 365)
 ```
 
 It looks like the number of collisions is increasing.
 
 ```{r}
-collisions %>% 
+collisions |>
   count(genus, species, sort = TRUE)
 ```
 
 ```{r}
-collisions %>% 
+collisions |>
   count(genus, sort = TRUE)
 ```
 
 
 ```{r}
-collisions %>% 
+collisions |>
   count(locality, sort = TRUE)
 ```
 
-There are two localities---McCormick Park and the general Chicago area.
+There are two localities---McCormick Place and the general Chicago area.
 
 ## 2D EDA
 
-```{r eval=FALSE}
-collisions %>% 
+```{r}
+collisions |>
   ggplot(aes(date)) +
-  geom_histogram(binwidth = 500) +
-  facet_grid(cols = vars(locality))
+  geom_histogram(binwidth = 365) +
+  facet_grid(rows = vars(locality))
 ```
 
-Chicago collisions are increasing, but MP collisions actually look like they are going down. 
+Chicago collisions are increasing, but McCormick Place collisions actually look like they are going down. 
 
 

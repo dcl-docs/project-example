@@ -7,7 +7,7 @@
 # https://doi.org/10.5061/dryad.8rr0498
 
 # Authors: Sara Altman, Bill Behrman
-# Version: 2021-09-08
+# Version: 2023-08-08
 
 # Packages
 library(tidyverse)
@@ -28,10 +28,10 @@ birds <- read_rds(file_birds)
 
 light_mp <- read_rds(file_light_mp)
 
-file_collisions %>% 
-  read_rds() %>% 
-  left_join(birds, by = c("genus", "species")) %>% 
-  left_join(light_mp, by = "date") %>% 
-  select(!num_collisions) %>% 
-  arrange(genus, species, date) %>% 
+file_collisions |> 
+  read_rds() |> 
+  left_join(birds, by = join_by(genus, species)) |> 
+  left_join(light_mp, by = join_by(date)) |> 
+  select(!num_collisions) |> 
+  arrange(genus, species, date) |> 
   write_rds(file_out)

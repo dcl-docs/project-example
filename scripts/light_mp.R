@@ -7,7 +7,7 @@
 # https://doi.org/10.5061/dryad.8rr0498
 
 # Authors: Sara Altman, Bill Behrman
-# Version: 2021-09-08
+# Version: 2023-08-08
 
 # Packages
 library(tidyverse)
@@ -20,9 +20,12 @@ file_out <- here::here("data/light_mp.rds")
 
 #===============================================================================
 
-file_raw %>% 
+file_raw |> 
   read_csv(
     col_types = cols(Date = col_date(), Light_Score = col_double())
-  ) %>% 
-  rename_with(str_to_lower) %>% 
+  ) |> 
+  rename_with(str_to_lower) |> 
+  drop_na() |> 
+  group_by(date) |> 
+  summarize(light_score = round(mean(light_score))) |>
   write_rds(file_out)

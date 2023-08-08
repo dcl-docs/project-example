@@ -4,7 +4,7 @@
 # https://royalsocietypublishing.org/action/downloadSupplement?doi=10.1098%2Frspb.2019.0364&file=rspb20190364supp1.pdf
 
 # Authors: Sara Altman, Bill Behrman
-# Version: 2021-09-08
+# Version: 2023-08-08
 
 # Packages
 library(tidyverse)
@@ -28,7 +28,7 @@ file_out <- here::here("data/birds.rds")
 
 #===============================================================================
 
-file_raw %>% 
+file_raw |> 
   read_delim(
     delim = " ", 
     skip = 1, 
@@ -43,11 +43,11 @@ file_raw %>%
         habitat = col_character(),
         stratum = col_character()
       )
-  ) %>% 
+  ) |> 
   mutate(
     across(c(flight_call, habitat, stratum), str_to_lower),
     species = str_to_title(species),
     stratum = str_remove_all(stratum, "[^\\w].*$")
-  ) %>% 
-  relocate(family) %>% 
+  ) |> 
+  relocate(family) |> 
   write_rds(file_out)

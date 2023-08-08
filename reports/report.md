@@ -1,7 +1,7 @@
 Report
 ================
-Sara Altman
-2019-08-13
+Sara Altman, Bill Behrman
+2023-08-08
 
 ``` r
 # Packages
@@ -21,14 +21,14 @@ Birds that use flight calls appear more affected by increased light than
 birds that do not use flight calls.
 
 ``` r
-df %>% 
-  filter(!is.na(light_score), flight_call != "rare") %>% 
+df |> 
+  filter(!is.na(light_score), flight_call != "rare") |> 
   mutate(
     flight_call = 
       ordered(flight_call, levels = c("yes", "no"), labels = c("Yes", "No")),
     light_score = light_score / num_windows
-  ) %>% 
-  count(light_score, flight_call) %>% 
+  ) |> 
+  count(light_score, flight_call) |> 
   ggplot(aes(light_score, n, color = flight_call)) +
   geom_point() +
   geom_line() +

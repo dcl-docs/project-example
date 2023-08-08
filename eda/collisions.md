@@ -1,7 +1,11 @@
 Bird collisions
 ================
-Sara Altman
-2019-08-13
+Sara Altman, Bill Behrman
+2023-08-08
+
+- <a href="#summaries" id="toc-summaries">Summaries</a>
+- <a href="#1d-eda" id="toc-1d-eda">1D EDA</a>
+- <a href="#2d-eda" id="toc-2d-eda">2D EDA</a>
 
 ``` r
 # Packages
@@ -19,31 +23,24 @@ collisions <- read_rds(file_data)
 ## Summaries
 
 ``` r
-collisions %>% 
+collisions |>
   summary()
 ```
 
-    ##     genus             species               date           
-    ##  Length:69784       Length:69784       Min.   :1978-09-15  
-    ##  Class :character   Class :character   1st Qu.:1992-10-11  
-    ##  Mode  :character   Mode  :character   Median :2006-09-06  
-    ##                                        Mean   :2002-05-24  
-    ##                                        3rd Qu.:2011-10-14  
-    ##                                        Max.   :2016-11-30  
-    ##    locality        
-    ##  Length:69784      
-    ##  Class :character  
-    ##  Mode  :character  
-    ##                    
-    ##                    
-    ## 
+    ##     genus             species               date              locality        
+    ##  Length:69784       Length:69784       Min.   :1978-09-15   Length:69784      
+    ##  Class :character   Class :character   1st Qu.:1992-10-11   Class :character  
+    ##  Mode  :character   Mode  :character   Median :2006-09-06   Mode  :character  
+    ##                                        Mean   :2002-05-24                     
+    ##                                        3rd Qu.:2011-10-14                     
+    ##                                        Max.   :2016-11-30
 
 ``` r
-collisions %>% 
-  summarize_all(~ sum(is.na(.)))
+collisions |>
+  summarize_all(\(x) sum(is.na(x)))
 ```
 
-    ## # A tibble: 1 x 4
+    ## # A tibble: 1 × 4
     ##   genus species  date locality
     ##   <int>   <int> <int>    <int>
     ## 1     0       0     0        0
@@ -53,9 +50,9 @@ There are no `NA`s.
 ## 1D EDA
 
 ``` r
-collisions %>% 
+collisions |>
   ggplot(aes(date)) +
-  geom_histogram(binwidth = 250)
+  geom_histogram(binwidth = 365)
 ```
 
 ![](collisions_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
@@ -63,11 +60,11 @@ collisions %>%
 It looks like the number of collisions is increasing.
 
 ``` r
-collisions %>% 
+collisions |>
   count(genus, species, sort = TRUE)
 ```
 
-    ## # A tibble: 91 x 3
+    ## # A tibble: 91 × 3
     ##    genus       species         n
     ##    <chr>       <chr>       <int>
     ##  1 Zonotrichia Albicollis  10133
@@ -80,14 +77,14 @@ collisions %>%
     ##  8 Oreothlypis Peregrina    2515
     ##  9 Passerella  Iliaca       2443
     ## 10 Catharus    Ustulatus    2331
-    ## # … with 81 more rows
+    ## # ℹ 81 more rows
 
 ``` r
-collisions %>% 
+collisions |>
   count(genus, sort = TRUE)
 ```
 
-    ## # A tibble: 45 x 2
+    ## # A tibble: 45 × 2
     ##    genus           n
     ##    <chr>       <int>
     ##  1 Melospiza   12063
@@ -100,29 +97,31 @@ collisions %>%
     ##  8 Certhia      2676
     ##  9 Passerella   2443
     ## 10 Geothlypis   2001
-    ## # … with 35 more rows
+    ## # ℹ 35 more rows
 
 ``` r
-collisions %>% 
+collisions |>
   count(locality, sort = TRUE)
 ```
 
-    ## # A tibble: 2 x 2
+    ## # A tibble: 2 × 2
     ##   locality            n
     ##   <chr>           <int>
     ## 1 McCormick Place 36315
     ## 2 Chicago area    33469
 
-There are two localities—McCormick Park and the general Chicago area.
+There are two localities—McCormick Place and the general Chicago area.
 
 ## 2D EDA
 
 ``` r
-collisions %>% 
+collisions |>
   ggplot(aes(date)) +
-  geom_histogram(binwidth = 500) +
-  facet_grid(cols = vars(locality))
+  geom_histogram(binwidth = 365) +
+  facet_grid(rows = vars(locality))
 ```
 
-Chicago collisions are increasing, but MP collisions actually look like
-they are going down.
+![](collisions_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+Chicago collisions are increasing, but McCormick Place collisions
+actually look like they are going down.

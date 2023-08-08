@@ -1,6 +1,6 @@
 ---
 title: "Bird collisions + light scores"
-author: "Sara Altman"
+author: "Sara Altman, Bill Behrman"
 date: "`r Sys.Date()`"
 output: 
   github_document:
@@ -14,7 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r message=FALSE, warning=FALSE}
 # Packages
 library(tidyverse)
-library(lubridate)
 
 # Parameters
 file_data <- here::here("data/bird_collisions_light.rds")
@@ -25,29 +24,29 @@ file_data <- here::here("data/bird_collisions_light.rds")
 df <- read_rds(file_data)
 
 mccormick_place <- 
-  df %>% 
+  df |> 
   filter(locality == "McCormick Place")
 ```
 
 ## Summary
 
 ```{r}
-df %>% 
+df |> 
   summary()
 ```
 
 ## Collisions over time by flight call
 
 ```{r}
-df %>% 
-  count(year_month = floor_date(date, unit = "month"), flight_call) %>% 
+df |> 
+  count(year_month = floor_date(date, unit = "month"), flight_call) |> 
   ggplot(aes(year_month, n, color = flight_call)) +
   geom_line()
 ```
 
 ```{r}
-df %>% 
-  count(year = floor_date(date, unit = "year"), flight_call) %>% 
+df |> 
+  count(year = floor_date(date, unit = "year"), flight_call) |> 
   ggplot(aes(year, n, color = flight_call)) +
   geom_line()
 ```
@@ -55,9 +54,9 @@ df %>%
 ## Collisions by light score
 
 ```{r}
-mccormick_place %>% 
-  filter(!is.na(light_score)) %>% 
-  count(light_score, flight_call) %>% 
+mccormick_place |> 
+  drop_na(light_score) |> 
+  count(light_score, flight_call) |> 
   ggplot(aes(light_score, n, color = flight_call)) +
   geom_point() +
   geom_line() 
@@ -66,9 +65,9 @@ mccormick_place %>%
 Birds with a flight call appear more affected by light.
 
 ```{r}
-mccormick_place %>% 
-  filter(!is.na(light_score)) %>% 
-  count(light_score, habitat) %>% 
+mccormick_place |> 
+  drop_na(light_score) |>  
+  count(light_score, habitat) |> 
   ggplot(aes(light_score, n, color = habitat)) +
   geom_point() +
   geom_line() 
@@ -77,9 +76,9 @@ mccormick_place %>%
 Birds across the three habitats have similar responses to light.
 
 ```{r}
-mccormick_place %>% 
-  filter(!is.na(light_score)) %>% 
-  count(light_score, stratum) %>% 
+mccormick_place |> 
+  drop_na(light_score) |>  
+  count(light_score, stratum) |> 
   ggplot(aes(light_score, n, color = stratum)) +
   geom_point() +
   geom_line() 

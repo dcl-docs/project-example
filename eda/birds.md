@@ -1,7 +1,16 @@
 Birds
 ================
-Sara Altman
-2019-08-13
+Sara Altman, Bill Behrman
+2023-08-08
+
+- <a href="#summary" id="toc-summary">Summary</a>
+- <a href="#1d-eda" id="toc-1d-eda">1D EDA</a>
+  - <a href="#number-of-collisions" id="toc-number-of-collisions">Number of
+    collisions</a>
+  - <a href="#flight-call" id="toc-flight-call">Flight call</a>
+  - <a href="#habitat" id="toc-habitat">Habitat</a>
+  - <a href="#stratum" id="toc-stratum">Stratum</a>
+- <a href="#2d-eda" id="toc-2d-eda">2D EDA</a>
 
 ``` r
 # Packages
@@ -18,48 +27,41 @@ birds <- read_rds(file_data)
 ## Summary
 
 ``` r
-birds %>% 
+birds |> 
   summary()
 ```
 
-    ##     family             genus             species         
+    ##     family             genus             species          num_collisions   
+    ##  Length:91          Length:91          Length:91          Min.   :    1.0  
+    ##  Class :character   Class :character   Class :character   1st Qu.:   21.0  
+    ##  Mode  :character   Mode  :character   Mode  :character   Median :  177.0  
+    ##                                                           Mean   :  766.9  
+    ##                                                           3rd Qu.:  726.0  
+    ##                                                           Max.   :10133.0  
+    ##  flight_call          habitat            stratum         
     ##  Length:91          Length:91          Length:91         
     ##  Class :character   Class :character   Class :character  
     ##  Mode  :character   Mode  :character   Mode  :character  
     ##                                                          
     ##                                                          
-    ##                                                          
-    ##  num_collisions    flight_call          habitat         
-    ##  Min.   :    1.0   Length:91          Length:91         
-    ##  1st Qu.:   21.0   Class :character   Class :character  
-    ##  Median :  177.0   Mode  :character   Mode  :character  
-    ##  Mean   :  766.9                                        
-    ##  3rd Qu.:  726.0                                        
-    ##  Max.   :10133.0                                        
-    ##    stratum         
-    ##  Length:91         
-    ##  Class :character  
-    ##  Mode  :character  
-    ##                    
-    ##                    
     ## 
 
 ``` r
-birds %>% 
-  select(family, genus, species) %>% 
+birds |> 
+  select(family, genus, species) |> 
   n_distinct()
 ```
 
     ## [1] 91
 
-There are 91 disinct bird species.
+There are 91 distinct bird species.
 
 ``` r
-birds %>% 
-  keep(~ sum(is.na(.)) > 0)
+birds |> 
+  keep(\(x) sum(is.na(x)) > 0)
 ```
 
-    ## # A tibble: 91 x 0
+    ## # A tibble: 91 × 0
 
 There are no NAs in any column.
 
@@ -68,7 +70,7 @@ There are no NAs in any column.
 ### Number of collisions
 
 ``` r
-birds %>% 
+birds |> 
   ggplot(aes(num_collisions)) +
   geom_histogram(binwidth = 150)
 ```
@@ -78,11 +80,11 @@ birds %>%
 Most species have a very small number of collisions.
 
 ``` r
-birds %>% 
+birds |> 
   count(num_collisions, sort = TRUE)
 ```
 
-    ## # A tibble: 81 x 2
+    ## # A tibble: 81 × 2
     ##    num_collisions     n
     ##             <dbl> <int>
     ##  1              6     3
@@ -95,21 +97,21 @@ birds %>%
     ##  8             16     2
     ##  9             68     2
     ## 10              3     1
-    ## # … with 71 more rows
+    ## # ℹ 71 more rows
 
 There are a couple of species with very high collision numbers.
 
 ``` r
-birds %>% 
+birds |> 
   filter(num_collisions > 5000)
 ```
 
-    ## # A tibble: 3 x 7
-    ##   family      genus     species  num_collisions flight_call habitat stratum
-    ##   <chr>       <chr>     <chr>             <dbl> <chr>       <chr>   <chr>  
-    ## 1 Passerelli… Zonotric… Albicol…          10133 yes         forest  lower  
-    ## 2 Passerelli… Junco     Hyemalis           6303 yes         edge    lower  
-    ## 3 Passerelli… Melospiza Melodia            5124 yes         edge    lower
+    ## # A tibble: 3 × 7
+    ##   family        genus       species   num_collisions flight_call habitat stratum
+    ##   <chr>         <chr>       <chr>              <dbl> <chr>       <chr>   <chr>  
+    ## 1 Passerellidae Zonotrichia Albicoll…          10133 yes         forest  lower  
+    ## 2 Passerellidae Junco       Hyemalis            6303 yes         edge    lower  
+    ## 3 Passerellidae Melospiza   Melodia             5124 yes         edge    lower
 
 Maybe these are very common birds in the Chicago area. The Passerellidae
 family are sparrows.
@@ -117,11 +119,11 @@ family are sparrows.
 ### Flight call
 
 ``` r
-birds %>% 
+birds |> 
   count(flight_call, sort = TRUE)
 ```
 
-    ## # A tibble: 3 x 2
+    ## # A tibble: 3 × 2
     ##   flight_call     n
     ##   <chr>       <int>
     ## 1 yes            66
@@ -132,8 +134,8 @@ Flight call has three possible values: yes, no, and rare. Most birds
 have a flight call.
 
 ``` r
-birds %>% 
-  mutate(flight_call = fct_infreq(flight_call)) %>% 
+birds |> 
+  mutate(flight_call = fct_infreq(flight_call)) |> 
   ggplot(aes(flight_call)) +
   geom_bar()
 ```
@@ -143,11 +145,11 @@ birds %>%
 ### Habitat
 
 ``` r
-birds %>% 
+birds |> 
   count(habitat, sort = TRUE)
 ```
 
-    ## # A tibble: 3 x 2
+    ## # A tibble: 3 × 2
     ##   habitat     n
     ##   <chr>   <int>
     ## 1 forest     44
@@ -155,8 +157,8 @@ birds %>%
     ## 3 open       16
 
 ``` r
-birds %>% 
-  mutate(habitat = fct_infreq(habitat)) %>% 
+birds |> 
+  mutate(habitat = fct_infreq(habitat)) |> 
   ggplot(aes(habitat)) +
   geom_bar()
 ```
@@ -166,11 +168,11 @@ birds %>%
 ### Stratum
 
 ``` r
-birds %>% 
+birds |> 
   count(stratum, sort = TRUE)
 ```
 
-    ## # A tibble: 2 x 2
+    ## # A tibble: 2 × 2
     ##   stratum     n
     ##   <chr>   <int>
     ## 1 upper      48
@@ -182,10 +184,10 @@ similar.
 ## 2D EDA
 
 ``` r
-birds %>% 
-  group_by(flight_call) %>% 
-  summarize(num_collisions = sum(num_collisions)) %>% 
-  mutate(flight_call = fct_reorder(flight_call, num_collisions)) %>% 
+birds |> 
+  group_by(flight_call) |> 
+  summarize(num_collisions = sum(num_collisions)) |> 
+  mutate(flight_call = fct_reorder(flight_call, num_collisions)) |> 
   ggplot(aes(flight_call, num_collisions)) +
   geom_col()
 ```
@@ -197,10 +199,10 @@ birds, but there are also way more flight call species than non-flight
 call species.
 
 ``` r
-birds %>% 
-  group_by(stratum) %>% 
-  summarize(num_collisions = sum(num_collisions)) %>% 
-  mutate(stratum = fct_reorder(stratum, num_collisions)) %>% 
+birds |> 
+  group_by(stratum) |> 
+  summarize(num_collisions = sum(num_collisions)) |> 
+  mutate(stratum = fct_reorder(stratum, num_collisions)) |> 
   ggplot(aes(stratum, num_collisions)) +
   geom_col()
 ```
@@ -210,10 +212,10 @@ birds %>%
 The lower stratum birds have more collisions.
 
 ``` r
-birds %>% 
-  group_by(family) %>% 
-  summarize(num_collisions = sum(num_collisions, na.rm = TRUE)) %>% 
-  mutate(family = fct_reorder(family, num_collisions)) %>% 
+birds |> 
+  group_by(family) |> 
+  summarize(num_collisions = sum(num_collisions, na.rm = TRUE)) |> 
+  mutate(family = fct_reorder(family, num_collisions)) |> 
   ggplot(aes(family, num_collisions)) +
   geom_point() +
   coord_flip()
@@ -224,12 +226,12 @@ birds %>%
 The Paserellidae family have the most collisions.
 
 ``` r
-birds %>% 
-  filter(family == "Passerellidae") %>% 
-  unite(col = genus_species, genus, species, sep = " ") %>% 
-  group_by(genus_species) %>% 
-  summarize(num_collisions = sum(num_collisions, na.rm = TRUE)) %>% 
-  mutate(genus_species = fct_reorder(genus_species, num_collisions)) %>% 
+birds |> 
+  filter(family == "Passerellidae") |> 
+  unite(col = genus_species, genus, species, sep = " ") |> 
+  group_by(genus_species) |> 
+  summarize(num_collisions = sum(num_collisions, na.rm = TRUE)) |> 
+  mutate(genus_species = fct_reorder(genus_species, num_collisions)) |> 
   ggplot(aes(genus_species, num_collisions)) +
   geom_point() +
   coord_flip()

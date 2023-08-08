@@ -1,6 +1,6 @@
 ---
 title: "Report"
-author: "Sara Altman"
+author: "Sara Altman, Bill Behrman"
 date: "`r Sys.Date()`"
 output: 
   github_document:
@@ -29,14 +29,14 @@ df <- read_rds(file_data)
 Birds that use flight calls appear more affected by increased light than birds that do not use flight calls. 
 
 ```{r}
-df %>% 
-  filter(!is.na(light_score), flight_call != "rare") %>% 
+df |> 
+  filter(!is.na(light_score), flight_call != "rare") |> 
   mutate(
     flight_call = 
       ordered(flight_call, levels = c("yes", "no"), labels = c("Yes", "No")),
     light_score = light_score / num_windows
-  ) %>% 
-  count(light_score, flight_call) %>% 
+  ) |> 
+  count(light_score, flight_call) |> 
   ggplot(aes(light_score, n, color = flight_call)) +
   geom_point() +
   geom_line() +
